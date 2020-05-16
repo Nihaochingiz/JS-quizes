@@ -36,6 +36,19 @@ body, html
 	
 }
 
+.quiz__footer 
+{
+	position: absolute;
+	bottom: 0;
+	display: block;
+	width: 100%;
+}
+
+.footer__content 
+{
+	padding: 5px;
+}
+
 .button
 {
 	border: 0;
