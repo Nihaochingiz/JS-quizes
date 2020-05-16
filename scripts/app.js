@@ -18,8 +18,27 @@ class Quiz
 
 	Click(index)
 	{
-		this.score += this.questions[this.current].Click(index);
-		this.Next();
+		let value = this.questions[this.current].Click(index);
+		this.score += value;
+		if(this.Next())
+		{
+			if(value >= 1)
+			{
+				return index;
+			}
+			else
+			{
+				for(let i = 0; i < this.questions[this.current].answers.length; i++)
+				{
+					if(this.questions[this.current].answers[i].value >= 1)
+					{
+						return i;
+					}
+				}
+
+				return -1;
+			}
+		}
 	}
 
 	Next()
@@ -29,7 +48,10 @@ class Quiz
 		if(this.current >= this.questions.length) 
 		{
 			this.End();
+			return false;
 		}
+
+		return true;
 	}
 
 	End()
@@ -155,32 +177,69 @@ Update();
 
 function Update()
 {
-	headElem.innerHTML = quiz.questions[quiz.current].text;
-	buttonsElem.innerHTML = "";
-
-	for(var i = 0; i < quiz.questions[quiz.current].answers.length; i++)
+	if(quiz.current < quiz.questions.length) 
 	{
-		let btn = document.createElement("button");
-		btn.className = "button";
+		headElem.innerHTML = quiz.questions[quiz.current].text;
+		buttonsElem.innerHTML = "";
 
-		btn.innerHTML = quiz.questions[quiz.current].answers[i].text;
+		for(var i = 0; i < quiz.questions[quiz.current].answers.length; i++)
+		{
+			let btn = document.createElement("button");
+			btn.className = "button";
 
-		btn.setAttribute("index", i);
+			btn.innerHTML = quiz.questions[quiz.current].answers[i].text;
 
-		buttonsElem.appendChild(btn);
+			btn.setAttribute("index", i);
+
+			buttonsElem.appendChild(btn);
+		}
+		
+		pagesElem.innerHTML = (quiz.current + 1) + " / " + quiz.questions.length;
+
+		Init();
 	}
-	
-	pagesElem.innerHTML = (quiz.current + 1) + " / " + quiz.questions.length;
-
-	Init();
+	else
+	{
+		buttonsElem.innerHTML = "";
+		headElem.innerHTML = quiz.results[quiz.result].text;
+		pagesElem.innerHTML = "Очки: " + quiz.score;
+	}
 }
 
 function Init()
 {
+	let btns = document.getElementsByClassName("button");
 
+	for(let i = 0; i < btns.length; i++)
+	{
+		btns[i].addEventListener("click", function (e) { Click(e.target.getAttribute("index")); });
+	}
 }
 
 function Click(index) 
 {
+	let correct = quiz.Click(index);
 
+	if(quiz.type == 1)
+	{
+		let btns = document.getElementsByClassName("button");
+
+		for(let i = 0; i < btns.length; i++)
+		{
+			btns[i].className = "button button_passive";
+		}
+
+		btns[correct].className = "button button_correct";
+
+		if(index != correct) 
+		{
+			btns[index].className = "button button_wrong";
+		} 
+
+		setTimeout(Update, 2000);
+	}
+	else
+	{
+		Update();
+	}
 }
