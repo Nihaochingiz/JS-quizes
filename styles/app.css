@@ -7,7 +7,7 @@ body, html
 	overflow: hidden;
 	font-size: 16px;
 	font-family: helvetica, arial;
-	background: #f6f6f6;
+	background: #f9f9f9;
 	color: #111;
 }
 
@@ -28,7 +28,13 @@ body, html
 
 .quiz__head
 {
+	font-size: 20pt;
+	margin: 50px 5px;
+}
 
+.head__content 
+{
+	padding: 5px;
 }
 
 .quiz__body
@@ -52,8 +58,8 @@ body, html
 .button
 {
 	border: 0;
-	border-radius: 15px;
-	background: #999;
+	border-radius: 10px;
+	background: #6477EB;
 	color: #fff;
 	padding: 10px 25px;
 	font-size: 15pt;
@@ -65,5 +71,5 @@ body, html
 
 .button:hover
 {
-	background: #aaa;
+	background: #7E8CDD;
 }
