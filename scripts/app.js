@@ -20,25 +20,28 @@ class Quiz
 	{
 		let value = this.questions[this.current].Click(index);
 		this.score += value;
-		if(this.Next())
-		{
-			if(value >= 1)
-			{
-				return index;
-			}
-			else
-			{
-				for(let i = 0; i < this.questions[this.current].answers.length; i++)
-				{
-					if(this.questions[this.current].answers[i].value >= 1)
-					{
-						return i;
-					}
-				}
 
-				return -1;
+		let correct = -1;
+
+		if(value >= 1)
+		{
+			correct = index;
+		}
+		else
+		{
+			for(let i = 0; i < this.questions[this.current].answers.length; i++)
+			{
+				if(this.questions[this.current].answers[i].value >= 1)
+				{
+					correct = i;
+					break;
+				}
 			}
 		}
+
+		this.Next();
+
+		return correct;
 	}
 
 	Next()
@@ -56,14 +59,12 @@ class Quiz
 
 	End()
 	{
-		for(var i = 0; i < this.results.length; i++)
+		for(let i = 0; i < this.results.length; i++)
 		{
-			if(!this.results[i].Check(this.score))
+			if(this.results[i].Check(this.score))
 			{
-				break;
+				this.result = i;
 			}
-
-			this.result++;
 		}
 	}
 } 
@@ -220,26 +221,30 @@ function Click(index)
 {
 	let correct = quiz.Click(index);
 
+	let btns = document.getElementsByClassName("button");
+
+	for(let i = 0; i < btns.length; i++)
+	{
+		btns[i].className = "button button_passive";
+	}
+
 	if(quiz.type == 1)
 	{
-		let btns = document.getElementsByClassName("button");
-
-		for(let i = 0; i < btns.length; i++)
+		if(correct >= 0)
 		{
-			btns[i].className = "button button_passive";
+			btns[correct].className = "button button_correct";
 		}
-
-		btns[correct].className = "button button_correct";
 
 		if(index != correct) 
 		{
 			btns[index].className = "button button_wrong";
 		} 
 
-		setTimeout(Update, 2000);
+		setTimeout(Update, 1000);
 	}
 	else
 	{
-		Update();
+		btns[index].className = "button button_correct";
+		setTimeout(Update, 1000);
 	}
 }
