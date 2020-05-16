@@ -183,7 +183,7 @@ function Update()
 		headElem.innerHTML = quiz.questions[quiz.current].text;
 		buttonsElem.innerHTML = "";
 
-		for(var i = 0; i < quiz.questions[quiz.current].answers.length; i++)
+		for(let i = 0; i < quiz.questions[quiz.current].answers.length; i++)
 		{
 			let btn = document.createElement("button");
 			btn.className = "button";
