@@ -25,11 +25,17 @@ body, html
 	text-align: center;
 }
 
+.quiz-frame
+{
+	border: 0;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
 
 .quiz__head
 {
 	font-size: 20pt;
-	margin: 50px 5px;
+	margin: 10px;
+	margin-bottom: 50px;
 }
 
 .head__content 
@@ -69,7 +75,17 @@ body, html
 	cursor: pointer;
 }
 
-.button:hover
+.button_wrong 
 {
-	background: #7E8CDD;
+	background: #EB6465;
+}
+
+.button_right
+{
+	background: #5EB97D;
+}
+
+.button_passive
+{
+	background: #B3B3B3;
 }
