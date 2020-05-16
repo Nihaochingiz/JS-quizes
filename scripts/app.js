@@ -11,6 +11,7 @@ class Quiz
 		this.questions = questions;
 		this.results = results;
 		this.score = 0;
+		this.result = 0;
 
 		this.current = 0;
 	}
@@ -35,7 +36,12 @@ class Quiz
 	{
 		for(var i = 0; i < this.results.length; i++)
 		{
+			if(!this.results[i].Check(this.score))
+			{
+				break;
+			}
 
+			this.result++;
 		}
 	}
 } 
@@ -82,4 +88,99 @@ class Result
 			return false;
 		}
 	}
+}
+
+const results = 
+[
+	new Result("Вам многому нужно научиться", 0),
+	new Result("Вы уже неплохо разбираетесь", 2),
+	new Result("Ваш уровень выше среднего", 4),
+	new Result("Вы в совершенстве знаете тему", 6)
+];
+
+const questions = 
+[
+	new Question("2 + 2 = ", 
+	[
+		new Answer("2", 0),
+		new Answer("3", 0),
+		new Answer("4", 1),
+		new Answer("0", 0)
+	]),
+
+	new Question("2 * 2 = ", 
+	[
+		new Answer("2", 0),
+		new Answer("3", 0),
+		new Answer("4", 1),
+		new Answer("0", 0)
+	]),
+
+	new Question("2 / 2 = ", 
+	[
+		new Answer("0", 0),
+		new Answer("1", 1),
+		new Answer("2", 0),
+		new Answer("3", 0)
+	]),
+
+	new Question("2 - 2 = ", 
+	[
+		new Answer("0", 1),
+		new Answer("1", 0),
+		new Answer("2", 0),
+		new Answer("3", 0)
+	]),
+
+	new Question("2 + 2 * 2 = ", 
+	[
+		new Answer("4", 0),
+		new Answer("6", 1),
+		new Answer("8", 0),
+		new Answer("10", 0)
+	]),
+
+	new Question("2 + 2 / 2 = ", 
+	[
+		new Answer("1", 0),
+		new Answer("2", 0),
+		new Answer("3", 1),
+		new Answer("4", 0)
+	])
+];
+
+const quiz = new Quiz(1, questions, results);
+
+Update();
+
+function Update()
+{
+	headElem.innerHTML = quiz.questions[quiz.current].text;
+	buttonsElem.innerHTML = "";
+
+	for(var i = 0; i < quiz.questions[quiz.current].answers.length; i++)
+	{
+		let btn = document.createElement("button");
+		btn.className = "button";
+
+		btn.innerHTML = quiz.questions[quiz.current].answers[i].text;
+
+		btn.setAttribute("index", i);
+
+		buttonsElem.appendChild(btn);
+	}
+	
+	pagesElem.innerHTML = (quiz.current + 1) + " / " + quiz.questions.length;
+
+	Init();
+}
+
+function Init()
+{
+
+}
+
+function Click(index) 
+{
+
 }
