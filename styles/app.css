@@ -45,7 +45,7 @@ body, html
 
 .quiz__body
 {
-	
+	margin: 10px;
 }
 
 .quiz__footer 
@@ -68,10 +68,10 @@ body, html
 	background: #6477EB;
 	color: #fff;
 	padding: 10px 25px;
+	width: 70%;
 	font-size: 15pt;
-	display: inline-block;
-	vertical-align: middle;
-	margin: 5px;
+	display: block;
+	margin: 2px auto;
 	cursor: pointer;
 }
 
